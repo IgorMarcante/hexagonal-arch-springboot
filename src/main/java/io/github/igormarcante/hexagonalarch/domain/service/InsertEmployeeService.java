@@ -6,7 +6,6 @@ import io.github.igormarcante.hexagonalarch.domain.model.Employee;
 import io.github.igormarcante.hexagonalarch.domain.ports.inbound.InsertEmployeeUseCase;
 import io.github.igormarcante.hexagonalarch.domain.ports.outbound.InsertEmployeePort;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @AllArgsConstructor
 public class InsertEmployeeService implements InsertEmployeeUseCase {

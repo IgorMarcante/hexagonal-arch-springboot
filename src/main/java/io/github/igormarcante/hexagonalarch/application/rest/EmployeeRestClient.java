@@ -19,6 +19,9 @@ public interface EmployeeRestClient {
     @PostMapping()
     ResponseEntity<CreateEmployeeResponse> saveEmployee(@RequestBody Employee employee) throws GlobalException;
 
+    @PutMapping()
+    ResponseEntity<Void> update(@RequestBody Employee employee) throws GlobalException;
+
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteEmployee(@PathVariable(value = "id") String id);
+    ResponseEntity<Void> deleteEmployee(@PathVariable(value = "id") String id) throws GlobalException;;
 }

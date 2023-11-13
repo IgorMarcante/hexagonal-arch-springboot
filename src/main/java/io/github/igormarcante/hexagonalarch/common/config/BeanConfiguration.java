@@ -1,18 +1,9 @@
 package io.github.igormarcante.hexagonalarch.common.config;
 
 import io.github.igormarcante.hexagonalarch.domain.checker.ArgumentChecker;
-import io.github.igormarcante.hexagonalarch.domain.ports.inbound.DeleteEmployeeUseCase;
-import io.github.igormarcante.hexagonalarch.domain.ports.inbound.GetEmployeeUseCase;
-import io.github.igormarcante.hexagonalarch.domain.ports.inbound.GetEmployeesUseCase;
-import io.github.igormarcante.hexagonalarch.domain.ports.inbound.InsertEmployeeUseCase;
-import io.github.igormarcante.hexagonalarch.domain.ports.outbound.DeleteEmployeePort;
-import io.github.igormarcante.hexagonalarch.domain.ports.outbound.GetEmployeePort;
-import io.github.igormarcante.hexagonalarch.domain.ports.outbound.GetEmployeesPort;
-import io.github.igormarcante.hexagonalarch.domain.ports.outbound.InsertEmployeePort;
-import io.github.igormarcante.hexagonalarch.domain.service.DeleteEmployeeService;
-import io.github.igormarcante.hexagonalarch.domain.service.GetEmployeeService;
-import io.github.igormarcante.hexagonalarch.domain.service.GetEmployeesService;
-import io.github.igormarcante.hexagonalarch.domain.service.InsertEmployeeService;
+import io.github.igormarcante.hexagonalarch.domain.ports.inbound.*;
+import io.github.igormarcante.hexagonalarch.domain.ports.outbound.*;
+import io.github.igormarcante.hexagonalarch.domain.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,9 +23,12 @@ public class BeanConfiguration {
     InsertEmployeeUseCase insertEmployeeService(InsertEmployeePort insertEmployeeAdapter, ArgumentChecker existEmployeeChecker) {
         return new InsertEmployeeService(insertEmployeeAdapter, existEmployeeChecker);
     }
-
     @Bean
-    DeleteEmployeeUseCase deleteEmployeeService(DeleteEmployeePort deleteEmployeeAdapter) {
-        return new DeleteEmployeeService(deleteEmployeeAdapter);
+    DeleteEmployeeUseCase deleteEmployeeService(DeleteEmployeePort deleteEmployeeAdapter, ArgumentChecker notExistEmployeeChecker) {
+        return new DeleteEmployeeService(deleteEmployeeAdapter, notExistEmployeeChecker);
+    }
+    @Bean
+    UpdateEmployeeUseCase updateEmployeeService(UpdateEmployeePort updateEmployeeAdapter, ArgumentChecker notExistEmployeeChecker) {
+        return new UpdateEmployeeService(updateEmployeeAdapter, notExistEmployeeChecker);
     }
 }

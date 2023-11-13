@@ -3,10 +3,7 @@ package io.github.igormarcante.hexagonalarch.application.rest;
 import io.github.igormarcante.hexagonalarch.application.rest.response.CreateEmployeeResponse;
 import io.github.igormarcante.hexagonalarch.domain.exception.GlobalException;
 import io.github.igormarcante.hexagonalarch.domain.model.Employee;
-import io.github.igormarcante.hexagonalarch.domain.ports.inbound.DeleteEmployeeUseCase;
-import io.github.igormarcante.hexagonalarch.domain.ports.inbound.GetEmployeeUseCase;
-import io.github.igormarcante.hexagonalarch.domain.ports.inbound.GetEmployeesUseCase;
-import io.github.igormarcante.hexagonalarch.domain.ports.inbound.InsertEmployeeUseCase;
+import io.github.igormarcante.hexagonalarch.domain.ports.inbound.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +19,7 @@ public class EmployeeController implements EmployeeRestClient {
     private final GetEmployeesUseCase getEmployeesUseCase;
     private final InsertEmployeeUseCase insertEmployeeUseCase;
     private final DeleteEmployeeUseCase deleteEmployeeUseCase;
+    private final UpdateEmployeeUseCase updateEmployeeUseCase;
 
     @Override
     public ResponseEntity<Optional<Employee>> getEmployee(String id) {
@@ -40,7 +38,13 @@ public class EmployeeController implements EmployeeRestClient {
     }
 
     @Override
-    public ResponseEntity<Void> deleteEmployee(String id) {
+    public ResponseEntity<Void> update(Employee employee) throws GlobalException {
+        updateEmployeeUseCase.updateEmployee(employee);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteEmployee(String id) throws GlobalException {
         deleteEmployeeUseCase.deleteEmployee(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

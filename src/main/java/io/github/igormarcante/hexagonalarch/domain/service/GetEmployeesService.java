@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GetEmployeesService implements GetEmployeesUseCase {
     GetEmployeesPort getEmployeesPort;
+
     @Override
     public List<Employee> getEmployees() {
         return getEmployeesPort.getEmployees();
